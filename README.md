@@ -321,12 +321,17 @@ Partition analytics by campus and time window. Keep issue data in PostgreSQL/Pos
 
 Tagline: **Report once. Route smart. Fix faster.**
 
-4. Team Member Name:-
-  1. G.Srinath
-  2. M.Keerthigaraj
-  3. J.Vishnu Vardhan
-  4. S.K.Tharani
+## 👥 Team Members
 
-5.College Name:-
-Mahendra Engineering College (Autonomous) Namakkal.
+| S.No | Name              |
+| ---- | ----------------- |
+| 1    | G. Srinath        |
+| 2    | M. Keerthigaraj   |
+| 3    | J. Vishnu Vardhan |
+| 4    | S. K. Tharani     |
+
+## 🎓 College
+
+**Mahendra Engineering College (Autonomous), Namakkal**
+
 
