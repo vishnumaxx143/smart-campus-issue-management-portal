@@ -320,18 +320,3 @@ Partition analytics by campus and time window. Keep issue data in PostgreSQL/Pos
 **CampusResolve — AI Campus Operations Copilot**
 
 Tagline: **Report once. Route smart. Fix faster.**
-
-## 👥 Team Members
-
-| S.No | Name              |
-| ---- | ----------------- |
-| 1    | G. Srinath        |
-| 2    | M. Keerthigaraj   |
-| 3    | J. Vishnu Vardhan |
-| 4    | S. K. Tharani     |
-
-## 🎓 College
-
-**Mahendra Engineering College (Autonomous), Namakkal**
-
-

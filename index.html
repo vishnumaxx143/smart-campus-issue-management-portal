@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CampusResolve — Intelligent Campus Issue Platform</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--ink:#182230;--muted:#687386;--line:#e5e9f0;--accent:#4f46e5;--accent2:#0ea5e9;--green:#16a34a;--amber:#d97706;--red:#dc2626;--shadow:0 8px 28px rgba(31,41,55,.08)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+button,input,textarea,select{font:inherit}button{cursor:pointer;border:0}
+.top{background:linear-gradient(120deg,#111827,#312e81);color:white;padding:18px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.brand{font-size:21px;font-weight:800}.tag{font-size:12px;color:#c7d2fe}
+.role{display:flex;background:rgba(255,255,255,.12);padding:4px;border-radius:10px}.role button{background:transparent;color:white;padding:8px 14px;border-radius:7px}.role button.active{background:white;color:#312e81}
+.nav{display:flex;gap:8px;padding:12px 28px;background:white;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.nav button{padding:9px 13px;background:transparent;color:var(--muted);border-radius:8px}.nav button.active{background:#eef2ff;color:#4338ca;font-weight:700}
+main{max-width:1250px;margin:auto;padding:24px}.view{display:none}.view.active{display:block}
+.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+.kpi .n{font-size:30px;font-weight:800}.muted{color:var(--muted);font-size:13px}.title{font-size:24px;font-weight:800;margin:0 0 5px}.sub{color:var(--muted);margin:0 0 20px}
+.stat{border-left:4px solid var(--accent)}.stat.green{border-color:var(--green)}.stat.amber{border-color:var(--amber)}.stat.red{border-color:var(--red)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.between{justify-content:space-between}
+label{display:block;font-size:13px;font-weight:700;margin:0 0 6px}.field{margin-bottom:14px}input,textarea,select{width:100%;border:1px solid #d8dee8;border-radius:9px;padding:10px;background:white}textarea{min-height:105px;resize:vertical}
+.primary{background:var(--accent);color:white;padding:10px 15px;border-radius:9px;font-weight:700}.secondary{background:#eef2ff;color:#4338ca;padding:10px 15px;border-radius:9px;font-weight:700}.ghost{background:#f3f4f6;color:#374151;padding:8px 12px;border-radius:8px}
+.badge{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800}.high{background:#fee2e2;color:#b91c1c}.medium{background:#fef3c7;color:#92400e}.low{background:#dcfce7;color:#166534}.blue{background:#dbeafe;color:#1d4ed8}.purple{background:#ede9fe;color:#6d28d9}
+.ticket{border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:10px}.ticket h4{margin:0 0 6px}.ticket p{margin:4px 0}.timeline{display:flex;gap:0;margin:15px 0}.step{flex:1;text-align:center;position:relative;font-size:11px;color:#9ca3af}.step:before{content:"";display:block;width:20px;height:20px;border-radius:50%;background:#e5e7eb;margin:0 auto 6px;position:relative;z-index:2}.step:after{content:"";height:3px;background:#e5e7eb;position:absolute;top:9px;left:50%;right:-50%}.step:last-child:after{display:none}.step.done{color:#4338ca;font-weight:700}.step.done:before{background:#4f46e5}.step.done:after{background:#818cf8}
+.map{height:310px;border-radius:14px;background:radial-gradient(circle at 25% 35%,rgba(239,68,68,.5),transparent 9%),radial-gradient(circle at 65% 55%,rgba(245,158,11,.45),transparent 12%),radial-gradient(circle at 80% 20%,rgba(59,130,246,.4),transparent 10%),linear-gradient(145deg,#dbeafe,#dcfce7);position:relative;overflow:hidden}.map:before{content:"";position:absolute;inset:30px;background:repeating-linear-gradient(45deg,transparent 0 35px,rgba(100,116,139,.18) 36px 38px),repeating-linear-gradient(135deg,transparent 0 48px,rgba(100,116,139,.14) 49px 51px)}.pin{position:absolute;border-radius:50%;width:18px;height:18px;background:#dc2626;border:3px solid white;box-shadow:0 2px 7px #555}.pin.p2{background:#f59e0b}.pin.p3{background:#2563eb}
+.bar{height:9px;background:#eef2f7;border-radius:10px;overflow:hidden}.bar>i{display:block;height:100%;background:linear-gradient(90deg,#4f46e5,#0ea5e9)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-size:11px;text-transform:uppercase}
+.toast{position:fixed;right:20px;bottom:20px;background:#111827;color:white;padding:13px 16px;border-radius:10px;display:none;box-shadow:var(--shadow);z-index:20}
+.modal{display:none;position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:10;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modal .card{max-width:560px;width:100%;max-height:90vh;overflow:auto}
+.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{background:#f3f4f6;padding:7px 9px;border-radius:8px;font-size:12px}
+@media(max-width:900px){.g4,.g3,.g2{grid-template-columns:1fr 1fr}}@media(max-width:620px){.g4,.g3,.g2{grid-template-columns:1fr}.nav{overflow:auto}.top{padding:14px}.title{font-size:20px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div><div class="brand">CampusResolve</div><div class="tag">AI-powered campus issue reporting & resolution</div></div>
+  <div class="role"><button id="studentRole" class="active" onclick="switchRole('student')">Student</button><button id="adminRole" onclick="switchRole('admin')">Admin</button></div>
+</header>
+<nav class="nav">
+  <button class="active" data-v="home" onclick="showView('home')">Dashboard</button>
+  <button data-v="report" onclick="showView('report')">Report Issue</button>
+  <button data-v="tickets" onclick="showView('tickets')">My Issues</button>
+  <button data-v="mapview" onclick="showView('mapview')">Live Heatmap</button>
+  <button data-v="insights" onclick="showView('insights')">Insights</button>
+</nav>
+
+<main>
+<section id="home" class="view active">
+  <h1 class="title">Good afternoon 👋</h1><p class="sub">One place to report, track and improve your campus.</p>
+  <div class="grid g4">
+    <div class="card kpi stat"><div class="muted">Open issues</div><div class="n">24</div><div class="muted">↓ 12% this week</div></div>
+    <div class="card kpi stat green"><div class="muted">Avg. resolution</div><div class="n">6.4h</div><div class="muted">AI prediction: 5.9h</div></div>
+    <div class="card kpi stat amber"><div class="muted">Your impact points</div><div class="n">420</div><div class="muted">🏅 Campus Helper</div></div>
+    <div class="card kpi stat red"><div class="muted">Preventive alerts</div><div class="n">7</div><div class="muted">From IoT/pattern signals</div></div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card">
+      <div class="row between"><div><b>Smart campus pulse</b><div class="muted">Active issue density</div></div><span class="badge blue">LIVE</span></div>
+      <div class="map" style="height:240px;margin-top:12px"><i class="pin" style="left:27%;top:33%"></i><i class="pin p2" style="left:62%;top:51%"></i><i class="pin p3" style="left:79%;top:22%"></i><i class="pin p2" style="left:44%;top:72%"></i></div>
+    </div>
+    <div class="card">
+      <div class="row between"><b>Your recent issues</b><button class="ghost" onclick="showView('tickets')">View all</button></div>
+      <div id="recentTickets"></div>
+    </div>
+  </div>
+</section>
+
+<section id="report" class="view">
+  <h1 class="title">Report an issue</h1><p class="sub">AI will classify, prioritize and check for duplicates before submission.</p>
+  <div class="grid g2">
+    <div class="card">
+      <div class="field"><label>Issue description</label><textarea id="desc" placeholder="Example: Projector is flickering in CSE Lab 2..."></textarea></div>
+      <div class="grid g2">
+        <div class="field"><label>Location</label><select id="loc"><option>CSE Block - Lab 2</option><option>Library - Floor 1</option><option>Hostel A - Room 214</option><option>Main Block - Classroom 304</option><option>Cafeteria</option></select></div>
+        <div class="field"><label>Report mode</label><select id="mode"><option>Text + Photo</option><option>Voice-to-text</option><option>QR location scan</option></select></div>
+      </div>
+      <div class="field"><label>Photo / video</label><input type="file" accept="image/*,video/*"></div>
+      <div class="row"><button class="secondary" onclick="analyzeIssue()">✨ AI Analyze</button><button class="primary" onclick="submitIssue()">Submit Issue</button></div>
+    </div>
+    <div class="card">
+      <b>AI triage preview</b><div class="muted" style="margin:5px 0 12px">Generated from your description and campus context.</div>
+      <div id="aiBox"><div class="chip">Waiting for description…</div></div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:16px 0">
+      <b>Innovation layer</b>
+      <div class="chips" style="margin-top:10px"><span class="chip">🔎 Duplicate clustering</span><span class="chip">📅 Academic calendar boost</span><span class="chip">📍 Location routing</span><span class="chip">🛠 Preventive signals</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="tickets" class="view">
+  <h1 class="title">My issues</h1><p class="sub">Transparent status, ETA and feedback.</p>
+  <div id="ticketList"></div>
+</section>
+
+<section id="mapview" class="view">
+  <div class="row between"><div><h1 class="title">Campus issue heatmap</h1><p class="sub">Real-time density by location and severity.</p></div><span class="badge blue">24 ACTIVE</span></div>
+  <div class="card"><div class="map"><i class="pin" style="left:20%;top:30%"></i><i class="pin" style="left:29%;top:35%"></i><i class="pin p2" style="left:51%;top:62%"></i><i class="pin p2" style="left:61%;top:56%"></i><i class="pin p3" style="left:77%;top:26%"></i><i class="pin p3" style="left:71%;top:70%"></i></div>
+  <div class="chips" style="margin-top:12px"><span class="chip">🔴 Critical / safety</span><span class="chip">🟠 High</span><span class="chip">🔵 Normal</span></div></div>
+</section>
+
+<section id="insights" class="view">
+  <h1 class="title">Campus intelligence</h1><p class="sub">Analytics for operations and preventive action.</p>
+  <div class="grid g3">
+    <div class="card"><b>Issue categories</b><p class="muted">This month</p><p>Network</p><div class="bar"><i style="width:72%"></i></div><p>Infrastructure</p><div class="bar"><i style="width:54%"></i></div><p>Equipment</p><div class="bar"><i style="width:43%"></i></div><p>Cleanliness</p><div class="bar"><i style="width:31%"></i></div></div>
+    <div class="card"><b>Predictive maintenance</b><p class="muted">Pattern signals</p><div class="ticket"><b>⚠ AC-03 vibration rising</b><p class="muted">Engineering Block • 82% risk</p><button class="secondary" onclick="toast('Preventive work order created')">Create work order</button></div><div class="ticket"><b>⚠ Router cluster CSE-2</b><p class="muted">Packet loss trend • 74% risk</p></div></div>
+    <div class="card"><b>Student community</b><p class="muted">Gamification & peer help</p><div class="ticket"><b>🏆 Top contributor</b><p>Arun • 1,240 impact points</p></div><div class="ticket"><b>🛠 Fixer network</b><p>18 verified student volunteers</p></div><div class="ticket"><b>♻ Sustainability score</b><p>Campus impact: <strong>87/100</strong></p></div></div>
+  </div>
+  <div class="card" style="margin-top:16px"><b>Operational bottlenecks</b><table><thead><tr><th>Area</th><th>Avg. delay</th><th>Cause</th><th>Action</th></tr></thead><tbody><tr><td>Network</td><td>9.2h</td><td>Specialist queue</td><td>Auto-route to backup team</td></tr><tr><td>Classrooms</td><td>7.1h</td><td>Exam-period surge</td><td>Academic calendar boost</td></tr><tr><td>Hostel</td><td>5.4h</td><td>Parts availability</td><td>Predictive stock alert</td></tr></tbody></table></div>
+</section>
+
+<section id="admin" class="view">
+  <h1 class="title">Admin command center</h1><p class="sub">Triage, assign, escalate and measure campus operations.</p>
+  <div class="grid g4"><div class="card kpi stat red"><div class="muted">Critical</div><div class="n">3</div></div><div class="card kpi stat amber"><div class="muted">Unassigned</div><div class="n">8</div></div><div class="card kpi stat green"><div class="muted">SLA met</div><div class="n">94%</div></div><div class="card kpi stat"><div class="muted">Satisfaction</div><div class="n">4.6/5</div></div></div>
+  <div class="card" style="margin-top:16px"><div class="row between"><b>Live queue</b><div class="row"><select id="filter"><option>All</option><option>Critical</option><option>High</option><option>Normal</option></select><button class="secondary" onclick="bulkAssign()">Bulk assign</button></div></div>
+  <table style="margin-top:10px"><thead><tr><th>ID</th><th>Issue</th><th>Location</th><th>Priority</th><th>Assignee</th><th>Status</th></tr></thead><tbody id="adminRows"></tbody></table></div>
+</section>
+</main>
+
+<div class="toast" id="toast"></div>
+<script>
+const issues=[
+{id:'CR-1042',title:'Projector flickering',loc:'CSE Block - Lab 2',cat:'Equipment',priority:'High',status:'Assigned',eta:'3h',assignee:'Tech Team A'},
+{id:'CR-1038',title:'Wi-Fi drops during lectures',loc:'Main Block - Classroom 304',cat:'Network',priority:'Critical',status:'In Progress',eta:'1.5h',assignee:'Network Ops'},
+{id:'CR-1031',title:'Water leakage near washroom',loc:'Hostel A - Room 214',cat:'Infrastructure',priority:'Medium',status:'Resolved',eta:'Completed',assignee:'Facilities'}
+];
+
+function switchRole(role){
+ document.getElementById('studentRole').classList.toggle('active',role==='student');
+ document.getElementById('adminRole').classList.toggle('active',role==='admin');
+ if(role==='admin'){showView('admin');document.querySelector('[data-v="home"]').classList.remove('active');}
+ else {showView('home');}
+}
+function showView(id){
+ document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.v===id));
+ if(id==='tickets')renderTickets(); if(id==='admin')renderAdmin();
+}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2600)}
+function analyzeIssue(){
+ const d=document.getElementById('desc').value.toLowerCase(), loc=document.getElementById('loc').value;
+ let cat='General', priority='Normal', reason='Standard operational issue';
+ if(/wifi|internet|network|router|signal/.test(d)){cat='Network';priority='High';reason='Connectivity affects multiple users'}
+ else if(/projector|computer|lab|printer|fan|ac|equipment/.test(d)){cat='Equipment';priority='High';reason='Teaching/equipment disruption'}
+ else if(/leak|water|fire|electric|shock|danger|broken|unsafe/.test(d)){cat='Infrastructure';priority='Critical';reason='Potential safety impact'}
+ else if(/clean|garbage|toilet|waste/.test(d)){cat='Cleanliness';priority='Medium';reason='Hygiene impact'}
+ const duplicate=issues.find(x=>x.loc===loc && (x.cat===cat || x.title.toLowerCase().includes(d.split(' ')[0]||'zzz')));
+ document.getElementById('aiBox').innerHTML=`<div class="ticket"><p><span class="badge blue">${cat}</span> <span class="badge ${priority==='Critical'?'high':priority==='High'?'medium':'low'}">${priority}</span></p><b>AI reasoning</b><p class="muted">${reason}. Exam-calendar boost and occupancy signals included.</p><b>Predicted ETA</b><p>2–6 hours • confidence 87%</p>${duplicate?'<p><span class="badge purple">Possible duplicate</span> Similar issue '+duplicate.id+' detected nearby.</p>':''}</div>`;
+}
+function submitIssue(){
+ if(!document.getElementById('desc').value.trim()){toast('Add a short issue description first');return}
+ analyzeIssue(); const id='CR-'+(1043+issues.length);
+ issues.unshift({id,title:document.getElementById('desc').value.slice(0,42),loc:document.getElementById('loc').value,cat:'AI classified',priority:'High',status:'Submitted',eta:'4h',assignee:'Auto-routing'});
+ toast('Issue submitted • '+id+' • +40 impact points');
+ setTimeout(()=>showView('tickets'),500);
+}
+function renderTickets(){
+ document.getElementById('ticketList').innerHTML=issues.map((x,i)=>`<div class="card ticket"><div class="row between"><div><h4>${x.title}</h4><p class="muted">${x.id} • ${x.loc}</p></div><span class="badge ${x.priority==='Critical'?'high':x.priority==='High'?'medium':'low'}">${x.priority}</span></div><div class="timeline">${['Submitted','Triaged','Assigned','In Progress','Resolved'].map((s,j)=>`<div class="step ${j<=(['Submitted','Triaged','Assigned','In Progress','Resolved'].indexOf(x.status))?'done':''}">${s}</div>`).join('')}</div><div class="row between"><span class="muted">ETA: ${x.eta} • Assignee: ${x.assignee}</span>${x.status==='Resolved'?'<button class="secondary" onclick="toast(\'Thanks! Feedback recorded\')">Rate resolution</button>':''}</div></div>`).join('');
+ document.getElementById('recentTickets').innerHTML=issues.slice(0,3).map(x=>`<div class="ticket"><b>${x.title}</b><p class="muted">${x.id} • ${x.status} • ETA ${x.eta}</p></div>`).join('');
+}
+function renderAdmin(){
+ document.getElementById('adminRows').innerHTML=issues.map(x=>`<tr><td>${x.id}</td><td>${x.title}</td><td>${x.loc}</td><td><span class="badge ${x.priority==='Critical'?'high':x.priority==='High'?'medium':'low'}">${x.priority}</span></td><td>${x.assignee}</td><td>${x.status}</td></tr>`).join('');
+}
+function bulkAssign(){toast('8 unassigned issues routed using skill + workload + proximity')}
+renderTickets();renderAdmin();
+</script>
+</body>
+</html>
